@@ -1,0 +1,39 @@
+<div class="bg-white shadow overflow-hidden sm:rounded-lg">
+  <div class="px-4 py-5 sm:px-6">
+    <h2 class="text-2xl font-bold leading-7 text-gray-900 sm:text-3xl sm:truncate">
+      Dashboard
+    </h2>
+  </div>
+  <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
+    <dl class="sm:divide-y sm:divide-gray-200">
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Your Boards
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
+            <% @boards.each do |board| %>
+              <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                <%= link_to board.name, board_path(board), class: "text-indigo-600 hover:text-indigo-900" %>
+              </li>
+            <% end %>
+          </ul>
+        </dd>
+      </div>
+      <div class="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+        <dt class="text-sm font-medium text-gray-500">
+          Recent Feedback
+        </dt>
+        <dd class="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+          <ul class="border border-gray-200 rounded-md divide-y divide-gray-200">
+            <% @recent_feedbacks.each do |feedback| %>
+              <li class="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                <%= link_to feedback.title, board_feedback_path(feedback.board, feedback), class: "text-indigo-600 hover:text-indigo-900" %>
+              </li>
+            <% end %>
+          </ul>
+        </dd>
+      </div>
+    </dl>
+  </div>
+</div>
