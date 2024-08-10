@@ -1,4 +1,17 @@
-<div>
-  <h1 class="font-bold text-4xl">Boards#index</h1>
-  <p>Find me in app/views/boards/index.html.erb</p>
-</div>
+<h1 class="text-3xl font-bold mb-6">Your Boards</h1>
+
+<%= link_to "Create a new board", new_board_path, class: "mb-6 inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
+
+<% if @boards.any? %>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <% @boards.each do |board| %>
+      <div class="border rounded-lg p-4 shadow">
+        <h2 class="text-xl font-semibold mb-2"><%= link_to board.name, board_path(board), class: "text-blue-600 hover:underline" %></h2>
+        <p class="text-gray-600 mb-4"><%= board.description %></p>
+        <%= link_to "View feedbacks", board_feedbacks_path(board), class: "text-blue-500 hover:underline" %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>You haven't created any boards yet.</p>
+<% end %>

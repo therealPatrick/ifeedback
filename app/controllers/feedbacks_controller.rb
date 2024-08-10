@@ -5,6 +5,13 @@ class FeedbacksController < ApplicationController
 
   def index
     @feedbacks = @board.feedbacks
+
+    @feedbacks = Feedback.all
+    @feedbacks = @feedbacks.sort_by_votes if params[:sort] == 'votes'
+    @feedbacks = @feedbacks.sort_by_date if params[:sort] == 'date'
+    @feedbacks = @feedbacks.filter_by_status(params[:status])
+    @feedbacks = @feedbacks.filter_by_category(params[:category])
+    @feedbacks = @feedbacks.page(params[:page]).per(10) # Assuming 10 items per page
   end
 
   def show
@@ -54,6 +61,9 @@ class FeedbacksController < ApplicationController
 
   def set_board
     @board = Board.find(params[:board_id])
+    if @board.nil?
+      redirect_to board_path, alert: "Board not found"
+    end
   end
 
   def set_feedback

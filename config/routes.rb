@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'dashboard#index'
-  
+  resources :feedbacks
+
   devise_for :users
   
   resources :boards do

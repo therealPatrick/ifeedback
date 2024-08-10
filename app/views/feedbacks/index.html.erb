@@ -1,4 +1,23 @@
-<div>
-  <h1 class="font-bold text-4xl">Feedbacks#index</h1>
-  <p>Find me in app/views/feedbacks/index.html.erb</p>
+<h1 class="text-3xl font-bold mb-6">Feedbacks for <%= @board.name %></h1>
+
+<%= link_to "Add new feedback", new_board_feedback_path(@board), class: "mb-6 inline-block bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded" %>
+
+<% if @feedbacks.any? %>
+  <div class="space-y-4">
+    <% @feedbacks.each do |feedback| %>
+      <div class="border rounded-lg p-4 shadow">
+        <h2 class="text-xl font-semibold mb-2"><%= link_to feedback.title, board_feedback_path(@board, feedback), class: "text-blue-600 hover:underline" %></h2>
+        <p class="text-gray-600 mb-2"><%= feedback.description %></p>
+        <p class="text-sm text-gray-500">Status: <%= feedback.status %></p>
+        <p class="text-sm text-gray-500">Votes: <%= feedback.get_upvotes.size %></p>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>No feedbacks for this board yet.</p>
+<% end %>
+
+<div class="mb-4">
+  <%= link_to "Sort by Votes", feedbacks_path(sort: 'votes'), class: "text-blue-500 hover:underline mr-2" %>
+  <%= link_to "Sort by Date", feedbacks_path(sort: 'date'), class: "text-blue-500 hover:underline" %>
 </div>
